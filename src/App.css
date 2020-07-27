@@ -95,3 +95,32 @@ a{
     background: #a6a6a6;
     height: 10px;
 }
+
+.d-post{
+  justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 450;
+    padding: 10px;
+    width: 100px;
+    display: flex;
+    border-top: 1px solid;
+}
+
+.d-posted{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.pre-load{
+  left: 45%;
+  top: 100px;
+  
+}
+.no-post{
+  font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+
+}

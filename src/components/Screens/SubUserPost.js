@@ -8,7 +8,7 @@ const Home  = ()=>{
     const {state,dispatch} = useContext(UserContext)
     
     const fetchData =async () => {
-        await fetch('/allpost',{
+        await fetch('/getsubpost',{
             headers:{
                 "Authorization":"Bearer " + localStorage.getItem("jwt")
             }
@@ -48,8 +48,6 @@ const Home  = ()=>{
         })
   }
 
-    
-
     const unlikePost = (id)=>{
         fetch('/unlike',{
             method:"put",
@@ -76,7 +74,6 @@ const Home  = ()=>{
       })
   }
    
-
     const makeComment = (text,postId)=>{
         fetch('/comment',{
             method:"put",

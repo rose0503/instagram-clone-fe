@@ -56,9 +56,9 @@ const  Signin = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" 
-                        onClick={PostData}
+                        onClick={()=>PostData()}
                 >
-                    Đăng nhập 
+                    Đăng nhập   
                 </button>
                 <h6 className='forget-password'>
                     Bạn quên mật khẩu?
