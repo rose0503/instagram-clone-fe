@@ -1,4 +1,4 @@
-import React, {useState, createContext, useReducer, useEffect, useContext} from 'react';
+import React, {createContext, useReducer, useEffect, useContext} from 'react';
 import NavBar from './components/NavBar'
 import "./App.css"
 import {BrowserRouter, Route, Switch, useHistory} from "react-router-dom"
@@ -9,6 +9,8 @@ import Signup from "./components/Screens/Signup"
 import CreatePost from "./components/Screens/CreatePost"
 import UserProfile from "./components/Screens/UserProfile"
 import SubscribedUserPosts from "./components/Screens/SubUserPost"
+import Reset from "./components/Screens/Reset"
+import NewPassword from './components/Screens/NewPassword'
 import {reducer, initialState} from './reducers/userReducer'
 
 export const UserContext = createContext();
@@ -22,7 +24,8 @@ const Routing = () => {
       dispatch({type: "USER", payload:user})
     }
     else{
-      history.push('/signin')
+      if(!history.location.pathname.startsWith('/reset'))
+          history.push('/signin')
     }
   },[])
   return(
@@ -48,6 +51,12 @@ const Routing = () => {
         <Route path='/myfollowingpost'>
           <SubscribedUserPosts />
         </Route>
+        <Route exact path='/reset'>
+          <Reset />
+        </Route>
+        <Route path='/reset/:token'>
+          <NewPassword />
+        </Route>
       </Switch>  
   )
 }
@@ -65,3 +74,4 @@ function App() {
 }
 
 export default App;
+

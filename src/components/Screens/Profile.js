@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {UserContext} from '../../App'
+import {env} from "../server"
 
 const Profile = () => {
     const [mypics, setPics] = useState([]);
@@ -7,7 +8,7 @@ const Profile = () => {
     const [image, setImage] = useState('');
     //const [url, setUrl] = useState('');
     useEffect(()=>{
-        fetch('/mypost',{
+        fetch(`${env.addressServer}/mypost`,{
             headers:{
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
@@ -32,7 +33,7 @@ const Profile = () => {
             .then(data => {
                 //setUrl(data.url)
                 
-                fetch("/updatepic",{
+                fetch(`${env.addressServer}/updatepic`,{
                     method:"put",
                     headers:{
                         "Content-Type": "application/json",

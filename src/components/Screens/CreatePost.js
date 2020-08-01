@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom';
 import M from 'materialize-css'
+import {env} from "../server"
 
 const CreatePost = () => {
     const history = useHistory();
@@ -10,7 +11,7 @@ const CreatePost = () => {
     const [url, setUrl] = useState("");
     useEffect(() => {
         if(url){
-            fetch("/createpost",{
+            fetch(`${env.addressServer}/createpost`,{
                 method: "post",
                 headers:{
                     "Content-Type":"application/json",

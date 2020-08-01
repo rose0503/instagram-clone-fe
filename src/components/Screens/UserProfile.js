@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {UserContext} from '../../App'
 import {useParams} from "react-router-dom"
+import {env} from "../server"
 
 const Profile = () => {
     const [userProfile, setProfile] = useState(null);
@@ -9,7 +10,7 @@ const Profile = () => {
     const {userid} = useParams();
     const [showfollow, setShowfollow] = useState(state ? !state.following.includes(userid) : true);
     useEffect(()=>{
-        fetch(`/user/${userid}`,{
+        fetch(`${env.addressServer}/user/${userid}`,{
             headers:{
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
@@ -20,7 +21,7 @@ const Profile = () => {
     }, [])
 
     const followUser = () => {
-        fetch('/follow',{
+        fetch(`${env.addressServer}/follow`,{
             method: "put",
             headers:{
                 "Content-Type": "application/json",
@@ -48,7 +49,7 @@ const Profile = () => {
     }
 
     const unfollowUser = () => {
-        fetch('/unfollow',{
+        fetch(`${env.addressServer}/unfollow`,{
             method: "put",
             headers:{
                 "Content-Type": "application/json",
@@ -90,7 +91,7 @@ const Profile = () => {
             }}>
                 <div>
                     <img style={{width: "160px", height:"160px",borderRadius:"80px"}}
-                        src={userProfile.user.pic}
+                        src={userProfile.user.pic} alt="pic"
                     />
                 </div>
                 <div>

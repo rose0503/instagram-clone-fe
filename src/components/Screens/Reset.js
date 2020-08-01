@@ -1,13 +1,10 @@
-import React, {useState, useContext} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import M from 'materialize-css'
-import {UserContext} from "../../App"
 import {env} from "../server"
 
-const  Signin = () => {
-    const {state, dispatch} = useContext(UserContext);
+const  Reset = () => {
     const history = useHistory();
-    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const PostData = () => {
         const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -15,14 +12,13 @@ const  Signin = () => {
             M.toast({html: "Email không hợp lệ!", classes:"#e53935 red darken-1"});
             return;
         }
-        fetch(`${env.addressServer}/signin`,{
+        fetch(`${env.addressServer}/reset-password`,{
             method: "post",
             headers:{
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({
-                email,
-                password
+                email
             })
         }).then(res=> res.json())
          .then(data=> {
@@ -31,11 +27,8 @@ const  Signin = () => {
                     return
                 }
                 else {
-                    localStorage.setItem("jwt",data.token);
-                    localStorage.setItem("user", JSON.stringify(data.user));
-                    dispatch({type: "USER", payload: data.user})
-                    M.toast({html: "Đăng nhập thành công", classes:"#43a047 green darken-1"})
-                    history.push("/")
+                    M.toast({html: data.message, classes:"#43a047 green darken-1"})
+                    history.push("/signin")
                 }
          }).catch(err => {
              console.log(err);
@@ -51,29 +44,14 @@ const  Signin = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
-                    type= "password"
-                    placeholder = "password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" 
                         onClick={()=>PostData()}
                 >
-                    Đăng nhập   
+                    Reset password 
                 </button>
-                <h6 className='forget-password'>
-                    <Link to='/reset' className='sign'>Bạn quên mật khẩu?</Link>
-                </h6>
-            </div>
-            <div className='card yet-card'>
-                <h6>
-                    Bạn chưa có tài khoản?
-                    <Link to='/signup' className='sign'>Đăng ký</Link>
-                </h6>
             </div>
         </div>
     )
 }
 
-export default Signin;
+export default Reset;

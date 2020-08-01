@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import M from 'materialize-css'
+import {env} from "../server"
 
 const  Signup = () => {
     const history = useHistory();
@@ -10,9 +11,12 @@ const  Signup = () => {
     const [image, setImage] = useState('');
     const [url, setUrl] = useState(undefined);
     useEffect(()=>{
-        if(url){
-            uploadField()
+        const fetchData = ()=> {
+            if(url){
+                uploadField()
+            }
         }
+        fetchData();
     },[url])
 
     const uploadPic = ()=> {
@@ -34,11 +38,12 @@ const  Signup = () => {
     }
 
     const uploadField = () => {
-        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+        const checkEmail =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!checkEmail.test(email)){
             M.toast({html: "Email không hợp lệ!", classes:"#e53935 red darken-1"});
             return;
         }
-        fetch("/signup",{
+        fetch(`${env.addressServer}/signup`,{
             method: "post",
             headers:{
                 "Content-Type":"application/json"
