@@ -101,7 +101,7 @@ const  Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="file-field input-field">
-                    <div className="btn #64b5f6 blue darken-1">
+                    <div className="btn #64b5f6 blue darken-1" style={{height: "2.9rem"}}>
                         <span>Upload Avatar</span>
                         <input type="file" onChange={e => setImage(e.target.files[0])} />
                     </div>

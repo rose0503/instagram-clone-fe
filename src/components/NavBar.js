@@ -13,26 +13,56 @@ const NavBar = () => {
     const history = useHistory();
     useEffect(()=>{
         M.Modal.init(searchModal.current)
+        
     },[])
+    useEffect(()=>{
+        let dropdowns = document.querySelectorAll('.dropdown-trigger');
+    
+        let options = {
+            inDuration: 300,
+            outDuration: 300,
+            focus: true, // Activate on hover
+            coverTrigger: false, // Displays dropdown below the button
+        };
+        
+        M.Dropdown.init(dropdowns, options);
+    })
     const renderList = () => {
         if (state) {
             return (
                 <>
-                    <li><i className="large material-icons modal-trigger" data-target="modal1" style={{color:"black"}}>search</i></li>
-                    <li><Link to="/profile">Profile</Link></li>
-                    <li><Link to="/create">Create Post</Link></li>
-                    <li><Link to="/myfollowingpost">My following Posts</Link></li>
-                    <li>
-                        <button className="btn waves-effect waves-light #ff8a65 deep-orange lighten-2"
-                            onClick={() => {
-                                localStorage.clear()
-                                dispatch({ type: "CLEAR" })
-                                history.push('/signin')
-                            }}
-                        >
-                            Đăng xuất
-                    </button>
+                    
+                    <li style={{color:"black", width: "700px", display: "flex",justifyContent: "center"}}
+                        className="like  modal-trigger" 
+                        data-target="modal1" 
+                    >
+                        <div className="nav-custom">
+                            <i className="medium material-icons" >search</i>
+                            <p>Tìm kiếm</p>
+                        </div>
                     </li>
+                    
+                    <li><Link to="/"><i className="material-icons icon-item" style={{color:"black"}}>home</i></Link></li>
+                    <li><Link to="/create"><i className="material-icons icon-item" style={{color:"black"}}>add_a_photo</i></Link></li>
+                    <li className="dropdown-trigger" data-target="dropdown1"><Link to="#!1"><i className="material-icons icon-item" style={{color:"black"}}>account_circle</i></Link></li>
+                    
+                    
+                    <ul id='dropdown1' className='dropdown-content'>
+                        <li><Link to="/profile">Trang cá nhân</Link></li>
+                        <li><Link to="/myfollowingpost">Bài đăng theo dõi</Link></li>
+                        <li className="divider" tabIndex="-1"></li>
+                        <li>
+                            <p className="btn-logout" role="button"
+                                onClick={() => {
+                                    localStorage.clear()
+                                    dispatch({ type: "CLEAR" })
+                                    history.push('/signin')
+                                }}
+                                >
+                                    Đăng xuất
+                            </p>
+                        </li>
+                    </ul>
                 </>
             )
         } else {
@@ -65,13 +95,18 @@ const NavBar = () => {
     return (
         <nav>
             <div className="nav-wrapper white">
+                <div>
                 <Link to={state ? "/" : "/signin"} className="brand-logo left">Instagram</Link>
-                <ul id="nav-mobile" className="right">
+                </div>
+                <div>
+                <ul id="nav-mobile" className="right ">
                     {renderList()}
                 </ul>
+                </div>
             </div>
-            <div id="modal1" className="modal" ref={searchModal} >
+            <div id="modal1" className="modal" ref={searchModal} style={{width: "44%"}}>
                 <div className="modal-content">
+                    <h4 style={{fontFamily:"Arial", fontSize: "1.8rem",textAlign: "center"}}>Tìm kiếm tài khoản</h4>
                     <input
                         type="text"
                         placeholder= "Tìm kiếm"

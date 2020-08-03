@@ -69,7 +69,20 @@ const Profile = () => {
                 }}>
                     <div>
                         <img style={{width: "160px", height:"160px",borderRadius:"80px"}}
-                            src={state? state.pic : "loading..."}
+                            src={state? state.pic 
+                                :
+                                <div className="preloader-wrapper small active pre-load">
+                                    <div className="spinner-layer spinner-green-only">
+                                        <div className="circle-clipper left">
+                                            <div className="circle"></div>
+                                        </div><div className="gap-patch">
+                                            <div className="circle"></div>
+                                        </div><div className="circle-clipper right">
+                                            <div className="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                             }
                         />
                     </div>
                     <div>

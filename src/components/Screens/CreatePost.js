@@ -57,19 +57,21 @@ const CreatePost = () => {
          
     }
     return(
+        
         <div className="card input-field" style={{
             margin:"30px auto",
             maxWidth: "600px",
             padding:"20px", 
             textAlign:"center"
         }}>
+            <h4 style={{fontFamily:"Arial", fontSize: "1.8rem"}}>Tạo bài viết của bạn</h4>
             <input type="text"
-                placeholder="Tiêu đề" 
+                placeholder="Tiêu đề bài viết" 
                 value={title}
                 onChange={e => setTitle(e.target.value)}
             />
             <input type="text" 
-                placeholder= "Nội dung" 
+                placeholder= "Cảm nhận của bạn như thế nào?" 
                 value={body}
                 onChange={e => setBody(e.target.value)}    
             />
