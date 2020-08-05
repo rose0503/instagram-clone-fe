@@ -12,6 +12,7 @@ import SubscribedUserPosts from "./components/Screens/SubUserPost"
 import Reset from "./components/Screens/Reset"
 import NewPassword from './components/Screens/NewPassword'
 import {reducer, initialState} from './reducers/userReducer'
+import NotFound from './components/NotFound';
 
 export const UserContext = createContext();
 
@@ -56,6 +57,9 @@ const Routing = () => {
         </Route>
         <Route path='/reset/:token'>
           <NewPassword />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>  
   )

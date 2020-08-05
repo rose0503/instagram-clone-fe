@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext, useRef} from 'react'
 import {UserContext} from '../../App'
 import {Link} from 'react-router-dom'
 import M from 'materialize-css'
@@ -11,6 +11,7 @@ const Home  = ()=>{
     const [loading, setLoading] =useState(false)
     const {state,dispatch} = useContext(UserContext)
     const [showComment, setShowComment] = useState(false)
+    const [indexComment, setIndexComment] = useState('')
     const fetchData =async () => {
         setLoading(true)
         await fetch(`${env.addressServer}/allpost`,{
@@ -19,7 +20,7 @@ const Home  = ()=>{
             }
         }).then(res=>res.json())
          .then(result=>{
-            console.log(result)
+            // console.log(result)
             setData(result.posts)
             setLoading(false)
         })
@@ -144,9 +145,8 @@ const Home  = ()=>{
           setData(newData)
       })
   }
-
-     
-
+   
+  
     return(
         <div className="home">
             {
@@ -165,7 +165,7 @@ const Home  = ()=>{
             : ""
             }
             {
-                data.map(item => { 
+                data.map((item, i) => { 
                     return(
                         <div className='card home-card' key={item._id}>
                             <div style={{padding:"15px 0 15px 15px", fontSize:"18px", borderBottom:"1px solid #efefef",display: "flex",justifyContent: 'space-between'}}>
@@ -235,7 +235,7 @@ const Home  = ()=>{
                                                 </h6>
                                                 <div className="reaction">
                                                     <span>{record.date!==undefined  ? moment(record.date).startOf('minute').fromNow() :  ""}</span>
-                                                    <span style={{marginLeft:"10px"}}  className="like">Trả lời</span>        
+                                                    <span style={{marginLeft:"10px"}}  className="like" >Trả lời</span>        
                                                 </div>
                                             </>
                                             )
@@ -251,7 +251,7 @@ const Home  = ()=>{
                                     makeComment(e.target[0].value, item._id)
                                     e.target[0].value=''
                                 }}>
-                                    <input type="text" placeholder="Thêm bình luận"/>
+                                    <input type="text" placeholder="Thêm bình luận" />
                                 </form>
                                 </div>
                         </div> 
