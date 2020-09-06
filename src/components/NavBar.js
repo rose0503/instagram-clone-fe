@@ -10,7 +10,8 @@ const NavBar = () => {
     const [search, setSearch] = useState('');
     const [userDetails, setUserDetails] = useState([])
     const { state, dispatch } = useContext(UserContext);
-    const history = useHistory();
+    const history = useHistory( )
+        
     useEffect(()=>{
         M.Modal.init(searchModal.current)
         
