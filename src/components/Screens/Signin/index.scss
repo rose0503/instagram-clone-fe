@@ -1,0 +1,154 @@
+//Signin
+
+.mycard {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tab-right-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 330px;
+}
+
+.auth-card {
+    padding: 20px;
+    max-width: 330px;
+    text-align: center;
+}
+
+.yet-card {
+    padding: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.img-in-backgroup {
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+    -ms-animation: fadein 2s; /* Internet Explorer */
+    -o-animation: fadein 2s; /* Opera < 12.1 */
+    animation: fadein 2s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.btn-signin {
+    width: 100%;
+    margin: 10px 0;
+    height: 35px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+.forget-password {
+    color: #00376b !important;
+    font-size: 15px;
+}
+
+.link-sign {
+    margin-left: 5px;
+    color: #33a0fa !important;
+}
+.title-reset {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.divide {
+    overflow: hidden;
+    text-align: center;
+    color: #dbdbdb;
+    margin: 10px 0;
+}
+.divide:before,
+.divide:after {
+    background-color: #dbdbdb;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    vertical-align: middle;
+    width: 50%;
+}
+.divide:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+.divide:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+.back-signup {
+    margin: 50px -20px 0 -20px;
+    border-top: 1px solid #dbdbdb;
+    padding: 12px;
+}
+
+.text-link-reset-password {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+    .signin--slide-phone {
+        display: none;
+    }
+}
+
+.fit--right {
+    width: fit-content;
+    float: right;
+}

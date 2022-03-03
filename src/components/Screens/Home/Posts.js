@@ -1,32 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../App";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { UserContext } from "../../../App";
 import { Link } from "react-router-dom";
 import M from "materialize-css";
-import { env } from "../server";
+import { env } from "../../server";
+// import moment from 'moment'
 import moment from "moment-timezone";
-moment.locale("vi");
 
-const Home = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+import "./index.scss";
+
+function Posts(props) {
+    const { data, setData = () => {} } = props;
     const { state, dispatch } = useContext(UserContext);
     const [showComment, setShowComment] = useState(false);
-
-    const fetchData = async () => {
-        await fetch(`${env.addressServer}/getsubpost`, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("jwt"),
-            },
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                setData(result.posts);
-            });
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const [indexComment, setIndexComment] = useState("");
 
     const likePost = (id) => {
         fetch(`${env.addressServer}/like`, {
@@ -98,7 +84,6 @@ const Home = () => {
         })
             .then((res) => res.json())
             .then((result) => {
-                console.log(result);
                 const newData = data.map((item) => {
                     if (item._id === result._id) {
                         return result;
@@ -123,7 +108,6 @@ const Home = () => {
         })
             .then((res) => res.json())
             .then((result) => {
-                //console.log(result)
                 const newData = data.filter((item) => {
                     return item._id !== result._id;
                 });
@@ -131,26 +115,10 @@ const Home = () => {
                 setData(newData);
             });
     };
+
     return (
-        <div className="home">
-            {loading ? (
-                <div className="preloader-wrapper small active pre-load">
-                    <div className="spinner-layer spinner-green-only">
-                        <div className="circle-clipper left">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="gap-patch">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="circle-clipper right">
-                            <div className="circle"></div>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                ""
-            )}
-            {data.map((item) => {
+        <div className="wrapper-home-left">
+            {data.map((item, i) => {
                 return (
                     <div className="card home-card" key={item._id}>
                         <div
@@ -163,7 +131,7 @@ const Home = () => {
                             }}
                         >
                             <div style={{ display: "flex" }}>
-                                <img className="img-avt" src={item.postedBy.pic} />
+                                <img className="img-avt" alt="img-avt" src={item.postedBy.pic} />
                                 <span style={{ fontWeight: "500", fontSize: "15px" }}>
                                     <Link
                                         to={
@@ -180,7 +148,9 @@ const Home = () => {
                                 {item.postedBy._id === state._id ? (
                                     <i
                                         onClick={() => deletePost(item._id)}
-                                        className="material-icons like"
+                                        className="material-icons like tooltipped"
+                                        data-position="top"
+                                        data-tooltip="Xóa bài viết"
                                         style={{ color: "black", float: "right", margin: "0 5px 0 10px" }}
                                     >
                                         delete
@@ -247,7 +217,7 @@ const Home = () => {
                                       return (
                                           <>
                                               <h6 key={record._id} style={{ display: "flex" }}>
-                                                  <img className="img-avt-cmt" src={record.postedBy.pic} />
+                                                  <img className="img-avt-cmt" alt="avt" src={record.postedBy.pic} />
                                                   <span style={{ fontWeight: "500", marginRight: "6px" }}>
                                                       {record.postedBy.name}
                                                   </span>
@@ -286,6 +256,6 @@ const Home = () => {
             })}
         </div>
     );
-};
+}
 
-export default Home;
+export default Posts;

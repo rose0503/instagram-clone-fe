@@ -1,6 +1,6 @@
 export const env = {
-    addressServer: "https://instagram-clone-full.herokuapp.com"
-}
+    addressServer: "https://instagram-clone-full.herokuapp.com",
+};
 
 export default env;
 
